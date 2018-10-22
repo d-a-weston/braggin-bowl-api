@@ -21,7 +21,7 @@ function createBracket(playerList, teamSize, ) {
       array[randomIndex] = temporaryValue;
     }
 
-    //Assin
+    //Assign
     for(var i=0; i < num_of_teams; i++){  //tracks team number "i"
 
         for(var k=(i*teamSize); k < teamSize; k++){

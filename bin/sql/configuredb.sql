@@ -40,7 +40,7 @@ CREATE TABLE `tournament`
  `current_round`    INT(10) NOT NULL DEFAULT 0 ,
  `team_size`        INT(10) NOT NULL DEFAULT 1 ,
  `team_num`         INT(10) NOT NULL ,
-
+  /* may need an 'is_complete' column*/
 PRIMARY KEY (`tournamentID`)
 );
 

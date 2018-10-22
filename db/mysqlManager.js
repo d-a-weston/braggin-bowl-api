@@ -139,6 +139,27 @@ var Manager = {
     return db.query("UPDATE voted SET optionID=? WHERE playerID=? AND pollID=?)", [optionID, playerID, pollID], callback);
   },
 
+  //Round functions and calls
+  getRoundsByTournament: function(roundID, tournamentID, callback) {
+
+  },
+  addRoundToTournament: function(roundInfo, callback) {
+
+  },
+  deleteRound: function(roundID, callback) {
+
+  },
+  getPlayersByRound: function(roundID, callback) {
+
+  },
+  addPlayerToRound: function(playerID, roundID, callback) {
+
+  },
+
+  //Team functions and calls
+  
+
+
   //Organiser functions and calls
 
   // Helper functions

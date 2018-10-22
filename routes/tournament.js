@@ -92,4 +92,15 @@ router.post('/:tournamentID/attending/:playerID', function(req, res, next) {
   });
 });
 
+// Start tournament!!
+router.put('/:tournamentID/start', function(req, res, next) {
+  /*
+  ACTUALLY A ROUND COMMAND
+
+  if everything is ok
+  addRoundToTournament() -- round.js
+
+  */
+});
+
 module.exports = router;
