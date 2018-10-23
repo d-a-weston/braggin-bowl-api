@@ -9,8 +9,15 @@ router.get('/:roundID/:tournamentID', (req, res, next) => {
 if everything is good
 getRoundsByTournament(roundID, tournamentID)
 */
-
+  Manager.getRoundsByTournament(req.params.roundID, req.params.tournamentID, function(err, rows) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(rows);
+    }
+  });
 });
+
 
 // Add new round
 // PARAM tournamentID "the tounament the round is part of"
