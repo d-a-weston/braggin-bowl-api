@@ -152,12 +152,16 @@ var Manager = {
   getPlayersByRound: function(roundID, callback) {
 
   },
-  addPlayerToRound: function(playerID, roundID, callback) {
-
-  },
 
   //Team functions and calls
-  
+  addTeamToRound: function(teamInfo, callback){
+
+  },
+  addPlayerToTeam: function(playerInfo, callback){
+
+  },
+  getTeamsByRound: function(roundID, callback){},
+
 
 
   //Organiser functions and calls
