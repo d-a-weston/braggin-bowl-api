@@ -21,25 +21,22 @@ router.get('/:tournamentID', (req, res, next) => {
 router.post('/', function(req, res, next) {
 
   var playerList;
-  Manager.getAttendingByTournament(req.params.tournamentID,function(err, rows) {
+  Manager.getAttendingByTournament(req.body.tournamentID,function(err, rows) {
     if (err) {
       console.log(err);
     } else {
-      playerList = json(rows);
+      playerList = rows;
     }
   });
 
   var tournament;
-  Manager.getTournamentByID(req.params.tournamentID,function(err, rows) {
+  Manager.getTournamentByID(req.body.tournamentID,function(err, rows) {
     if (err) {
       console.log(err);
     } else {
-      tournament = json(rows);
+      tournament = rows;
     }
   });
-
-  console.log(tournament);
-  console.log(playerList);
 
   // var roundInfo = [
   //   {
