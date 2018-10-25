@@ -4,8 +4,8 @@ const Manager = require('../db/mysqlManager');
 const router = Router();
 
 // Get all rounds by tournament
-router.get('/:roundID/:tournamentID', (req, res, next) => {
-  Manager.getRoundsByTournament(req.params.roundID, req.params.tournamentID, function(err, rows) {
+router.get('/:tournamentID', (req, res, next) => {
+  Manager.getRoundsByTournament(req.params.tournamentID, function(err, rows) {
     if (err) {
       console.log(err);
     } else {
@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
       playerList = json(rows);
     }
   });
-  
+
   var tournament;
   Manager.getTournamentByID(req.params.tournamentID,function(err, rows) {
     if (err) {
@@ -56,7 +56,7 @@ router.post('/', function(req, res, next) {
   //     res.json(req.body); //or return count for 1 & 0
   //   }
   // });
-  
+
   // var currentIndex = playerList.length, temporaryValue, randomIndex, players_on_by, num_of_teams;
 
   // num_of_teams = Math.floor(playerList.length / tournament.teamSize);
@@ -102,7 +102,7 @@ router.post('/', function(req, res, next) {
   //     for(var i=(playerList.length - players_on_by); i < playerList.length; i++){
   //         //assign player at playerList[i] to team and assign team a by
   //     }
-      
+
   // }
 
 
@@ -113,7 +113,7 @@ router.post('/', function(req, res, next) {
 if everything is good
 playerlist = getplayersByTournamentID
   ---(bracket creation pseudocode)---
-  find number of teams and players on bi 
+  find number of teams and players on bi
   shuffle playerlist
 
   create a round(tournamentID, round_num)
@@ -122,7 +122,7 @@ playerlist = getplayersByTournamentID
     create a team(roundID)
     for each player
       add teamID and playerID to plays_for
-  
+
   create a team(roundID, bi=YES)
   for each player on bi
     add teamID and playerID to plays_for
