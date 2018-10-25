@@ -7,7 +7,7 @@ const router = Router();
 router.get('/:roundID/:tournamentID', (req, res, next) => {
   Manager.getRoundsByTournament(req.params.roundID, req.params.tournamentID, function(err, rows) {
     if (err) {
-      res.json(err);
+      console.log(err);
     } else {
       res.json(rows);
     }
@@ -20,85 +20,90 @@ router.get('/:roundID/:tournamentID', (req, res, next) => {
 // PARAM round_num "the round number"
 router.post('/', function(req, res, next) {
 
-  var playerList = Manager.getAttendingByTournament(req.params.tournamentID,function(err, rows) {
+  var playerList;
+  Manager.getAttendingByTournament(req.params.tournamentID,function(err, rows) {
     if (err) {
-      res.json(err);
+      console.log(err);
     } else {
-      res.json(rows);
+      playerList = json(rows);
     }
   });
   
-  var tournament = Manager.getTournamentByID(req.params.tournamentID,function(err, rows) {
+  var tournament;
+  Manager.getTournamentByID(req.params.tournamentID,function(err, rows) {
     if (err) {
-      res.json(err);
+      console.log(err);
     } else {
-      res.json(rows);
+      tournament = json(rows);
     }
   });
 
-  var roundInfo = [
-    {
-    "tournamentID": tournament.tournamentID,
-    "round_num": 0,
-    "is_complete": 'NO'
-    }
-  ]
+  console.log(tournament);
+  console.log(playerList);
 
-  var round = Manager.addRoundToTournament(roundInfo, function(err, count) {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(req.body); //or return count for 1 & 0
-    }
-  });
+  // var roundInfo = [
+  //   {
+  //   "tournamentID": tournament.tournamentID,
+  //   "round_num": 0,
+  //   "is_complete": 'NO'
+  //   }
+  // ]
+
+  // var round = Manager.addRoundToTournament(roundInfo, function(err, count) {
+  //   if (err) {
+  //     res.json(err);
+  //   } else {
+  //     res.json(req.body); //or return count for 1 & 0
+  //   }
+  // });
   
-  var currentIndex = playerList.length, temporaryValue, randomIndex, players_on_by, num_of_teams;
+  // var currentIndex = playerList.length, temporaryValue, randomIndex, players_on_by, num_of_teams;
 
-  num_of_teams = Math.floor(playerList.length / tournament.teamSize);
-  players_on_by =  tournament.teamSize - (playerList.length % tournament.teamSize);
+  // num_of_teams = Math.floor(playerList.length / tournament.teamSize);
+  // players_on_by =  tournament.teamSize - (playerList.length % tournament.teamSize);
 
-  //Fisher-Yates (aka Knuth) Shuffle
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+  // //Fisher-Yates (aka Knuth) Shuffle
+  // // While there remain elements to shuffle...
+  // while (0 !== currentIndex) {
 
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+  //   // Pick a remaining element...
+  //   randomIndex = Math.floor(Math.random() * currentIndex);
+  //   currentIndex -= 1;
 
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
+  //   // And swap it with the current element.
+  //   temporaryValue = array[currentIndex];
+  //   array[currentIndex] = array[randomIndex];
+  //   array[randomIndex] = temporaryValue;
+  // }
 
-  //Assign
-  for(var i=0; i < num_of_teams; i++){  //tracks team number "i"
-      var team = Manager.addTeamToRound(tournament.tournamentID, round.roundId, function(err, count) {
-        if (err) {
-          res.json(err);
-        } else {
-          res.json(req.body); //or return count for 1 & 0
-        }
-      });
+  // //Assign
+  // for(var i=0; i < num_of_teams; i++){  //tracks team number "i"
+  //     var team = Manager.addTeamToRound(tournament.tournamentID, round.roundId, function(err, count) {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
+  //         res.json(req.body); //or return count for 1 & 0
+  //       }
+  //     });
 
-      for(var k=(i*teamSize); k < teamSize; k++){
-          //assign team[i] to player at playerList[k]
-          Manager.addPlayerToTeam(playerlist[k], team.teamID, function(err, count) {
-            if (err) {
-              res.json(err);
-            } else {
-              res.json(req.body); //or return count for 1 & 0
-            }
-          });
-      }
-  }
+  //     for(var k=(i*teamSize); k < teamSize; k++){
+  //         //assign team[i] to player at playerList[k]
+  //         Manager.addPlayerToTeam(playerlist[k], team.teamID, function(err, count) {
+  //           if (err) {
+  //             res.json(err);
+  //           } else {
+  //             res.json(req.body); //or return count for 1 & 0
+  //           }
+  //         });
+  //     }
+  // }
 
-  if(players_on_by > 0){
-      for(var i=(playerList.length - players_on_by); i < playerList.length; i++){
-          //assign player at playerList[i] to team and assign team a by
-      }
+  // if(players_on_by > 0){
+  //     for(var i=(playerList.length - players_on_by); i < playerList.length; i++){
+  //         //assign player at playerList[i] to team and assign team a by
+  //     }
       
-  }
+  // }
 
 
 
