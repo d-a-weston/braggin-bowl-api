@@ -9,13 +9,17 @@ router.get('/login', function(req, res, next) {
     if (err) {
       res.json(err);
     } else {
-      bcrypt.compare(req.header('password'), rows[0].password, (err, result) => {
-        if (result) {
-          res.json(rows[0].playerID);
-        } else {
-          res.json(err)
-        }
-      });
+      if (rows[0] != null) {
+        bcrypt.compare(req.header('password'), rows[0].password, (err, result) => {
+          if (result) {
+            res.json(rows[0]);
+          } else {
+            res.json("error");
+          }
+        });
+      } else {
+        res.send("error");
+      }
     }
   });
 });

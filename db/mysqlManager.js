@@ -140,27 +140,29 @@ var Manager = {
   },
 
   //Round functions and calls
-  getRoundsByTournament: function(roundID, tournamentID, callback) {
-
+  getRoundsByTournament: function(tournamentID, callback) {
+    return db.query("SELECT * FROM round WHERE tournamentID=?", [tournamentID], callback);
   },
   addRoundToTournament: function(roundInfo, callback) {
-
+    return db.query("INSERT INTO round VALUES (?, ?, 'NO')", [roundInfo.tournamentID, roundInfo.round_num], callback);
   },
   deleteRound: function(roundID, callback) {
-
+    return db.query("DELETE FROM round WHERE roundID=?", [roundID], callback);
   },
-  getPlayersByRound: function(roundID, callback) {
+  getPlayersByRound: function(tournamentID, roundID, callback) {
 
   },
 
   //Team functions and calls
   addTeamToRound: function(teamInfo, callback){
-
+    return db.query("INSERT INTO team VALUES (?, 0, ?)", [teamInfo.roundID, teamInfo.bi], callback);
   },
   addPlayerToTeam: function(playerInfo, callback){
-
+    return db.query("INSERT INTO plays_for VALUES (?, ?)", [playerInfo.teamID, playerInfo.playerID], callback);
   },
-  getTeamsByRound: function(roundID, callback){},
+  getTeamsByRound: function(roundID, callback){
+    return db.query("SELECT * FROM team WHERE roundID=?", [roundID], callback);
+  },
 
 
 
