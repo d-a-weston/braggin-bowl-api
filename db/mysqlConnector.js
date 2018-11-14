@@ -1,11 +1,6 @@
 const mysql = require('mysql');
+const db_info = require('../.secrets/db_info');
 
-var pool = mysql.createPool({
-  host: 'braggin-bowl.cnemk4eho4nt.us-west-2.rds.amazonaws.com',
-  user: 'node',
-  password: 'testPassForLulz',
-  database: 'braggin_bowl',
-  debug: 'false'
-});
+var pool = mysql.createPool(db_info);
 
 module.exports = pool;

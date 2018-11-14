@@ -63,7 +63,7 @@ var Manager = {
     return db.query("SELECT * FROM plays_in", callback);
   },
   getAttendingByTournament: function(tournamentID, callback) {
-    return db.query("SELECT playerID FROM plays_in WHERE tournamentID=?", [tournamentID], callback);
+    return db.query("SELECT * FROM player WHERE playerID IN (SELECT playerID FROM plays_in WHERE tournamentID=?);", [tournamentID], callback);
   },
   getAttendingByPlayer: function(playerID, callback) {
     return db.query("SELECT * FROM plays_in INNER JOIN tournament ON plays_in.tournamentID=tournament.tournamentID WHERE plays_in.playerID=?", [playerID], callback);
